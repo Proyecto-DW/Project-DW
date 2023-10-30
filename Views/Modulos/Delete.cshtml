@@ -1,0 +1,31 @@
+﻿@model appbeneficiencia.Models.Modulo
+
+@{
+    ViewData["Title"] = "Eliminar Módulo";
+}
+
+<div>
+    <h4>Módulo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Modulo1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Modulo1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdModulo" />
+        <br />
+        <input type="submit" value="Eliminar" class="btn btn-outline-danger" />
+        <a asp-action="Index" class="btn btn-outline-info">Regresar</a>
+    </form>
+</div>

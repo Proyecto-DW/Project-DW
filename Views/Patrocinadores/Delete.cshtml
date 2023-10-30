@@ -1,0 +1,43 @@
+﻿@model appbeneficiencia.Models.Patrocinadore
+
+@{
+    ViewData["Title"] = "Eliminar Patrocinadores";
+}
+
+<div>
+    <h4>Patrocinadores</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CodigoPais)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CodigoPais)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Soporte)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Soporte)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoBeneficioNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TipoBeneficioNavigation.IdBeneficio)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdPatrocinador" />
+        <br />
+        <input type="submit" value="Eliminar" class="btn btn-outline-danger" />
+        <a asp-action="Index" class="btn btn-outline-info">Regresar</a>
+    </form>
+</div>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<appbeneficiencia.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Registro Rol</h1>
+
+<p>
+    <style>
+        .btn-no-underline {
+            text-decoration: none;
+        }
+    </style>
+
+    <button type="button" class="btn btn-outline-info">
+        <a asp-action="Create" class="btn-no-underline"> Nuevo Registro </a>
+    </button>
+
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="custom-nombre-rol">
+                    Rol
+                </th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdRol" class="btn btn-outline-success">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.IdRol" class="btn btn-outline-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdRol" class="btn btn-outline-danger">Eliminar</a>
+          
+                </td>
+            </tr>
+    }
+        </tbody>
+    </>
+</div>

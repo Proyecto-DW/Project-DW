@@ -1,0 +1,89 @@
+﻿@model List<appbeneficiencia.Models.Beneficiario>
+@{
+    ViewData["Title"] = "Beneficiarios que Cumplen Años Próximamente";
+}
+
+<h2>Beneficiarios que Cumplen Años Próximamente</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Edad</th>
+                <th>Fecha de Cumpleaños</th>
+                <th>Mes de Cumpleaños</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var beneficiariosOrdenados = Model
+                .Select(b => new
+                {
+                    Beneficiario = b,
+                    ProximoCumpleaños = GetProximoCumpleaños(b.FechaNacimiento)
+                })
+                .OrderBy(b => b.ProximoCumpleaños.Month);
+            }
+
+            @foreach (var item in beneficiariosOrdenados)
+            {
+                var beneficiario = item.Beneficiario;
+                var proximoCumpleaños = item.ProximoCumpleaños;
+                var nombreMes = proximoCumpleaños.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
+
+                <tr>
+                    <td>@beneficiario.NombreCompleto</td>
+                    <td>@(beneficiario.FechaNacimiento?.ToShortDateString())</td>
+                    <td>@(CalcularEdad(beneficiario.FechaNacimiento))</td>
+                    <td>
+                        @proximoCumpleaños.ToString("dd/MM/yyyy") <i class="fas fa-birthday-cake"></i>
+                    </td>
+                    <td>@nombreMes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No hay beneficiarios que cumplan años próximamente.</p>
+}
+
+@functions {
+    int CalcularEdad(DateTime? fechaNacimiento)
+    {
+        if (fechaNacimiento.HasValue)
+        {
+            DateTime fechaActual = DateTime.Today;
+            int edad = fechaActual.Year - fechaNacimiento.Value.Year;
+            if (fechaNacimiento.Value.Date > fechaActual.AddYears(-edad))
+            {
+                edad--;
+            }
+            return edad;
+        }
+        return 0;
+    }
+
+    DateTime GetProximoCumpleaños(DateTime? fechaNacimiento)
+    {
+        if (fechaNacimiento.HasValue)
+        {
+            var fechaNacimientoActual = fechaNacimiento.Value;
+            var fechaActual = DateTime.Today;
+            var proximoCumpleaños = new DateTime(fechaActual.Year, fechaNacimientoActual.Month, fechaNacimientoActual.Day);
+
+            if (proximoCumpleaños < fechaActual)
+            {
+                proximoCumpleaños = proximoCumpleaños.AddYears(1);
+            }
+
+            return proximoCumpleaños;
+        }
+
+        return DateTime.MinValue;
+    }
+}

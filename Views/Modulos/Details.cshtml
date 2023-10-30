@@ -1,0 +1,30 @@
+﻿@model appbeneficiencia.Models.Modulo
+
+@{
+    ViewData["Title"] = "Detalles Módulo";
+}
+
+
+<div>
+    <h4>Módulo</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Modulo1)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Modulo1)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaCreacion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <br />
+    <a asp-action="Edit" asp-route-id="@Model?.IdModulo" class="btn btn-outline-success">Editar</a>
+    <a asp-action="Index" class="btn btn-outline-info">Regresar</a>
+</div>

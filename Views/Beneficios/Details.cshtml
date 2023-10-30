@@ -1,0 +1,28 @@
+﻿@model appbeneficiencia.Models.Beneficio
+
+@{
+    ViewData["Title"] = "Detalles Beneficio";
+}
+<div>
+    <h4>Beneficio</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+    </dl>
+</div>
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdBeneficio" class="btn btn-outline-success">Editar</a>
+    <a asp-action="Index" class="btn btn-outline-info">Regresar</a>
+</div>

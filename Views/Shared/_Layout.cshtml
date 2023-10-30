@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="~/favicon3.ico" type="image/x-icon" />
+    <title>@ViewData["Title"] YeshuaCoban</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/appbeneficiencia.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">
+                    <img src="~/theme/dist/img/logo3_1.png" alt="Descripción de la imagen" style="width: 50px; height: 50px;">Yeshua Coban
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-users"></i> &nbsp; Beneficiarios
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Beneficiarios" asp-action="Index">
+                                        <i class="fas fa-child"></i> Agregar Beneficiarios
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="PadresFamilia" asp-action="Index">
+                                        <i class="fas fa-people-arrows"></i> Padres de Familia
+                                </a>
+                                </li>
+
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Beneficiarios" asp-action="BeneficiariosCumplenAnios">
+                                        <i class="fas fa-birthday-cake"></i> Proximos Cumpleañeros
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Asignación Beneficios</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-people-arrows"></i> &nbsp;Patrocinador
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Patrocinadores" asp-action="Index">
+                                        <i class="fas fa-user-friends"></i> Agregar Patrocinador
+                                    </a>
+                                </li>
+                                 <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Beneficios" asp-action="Index">
+                                        <i class="fas fa-gift"></i> Beneficios
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-puzzle-piece"></i> &nbsp;Equipo
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Colaboradores" asp-action="Index">
+                                        <i class="fas fa-user-plus"></i> Registrar Colaborador
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Puestos" asp-action="Index">
+                                        <i class="fas fa-upload"></i> Puestos
+                                    </a>
+                                </li>
+                   
+
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-address-book"></i> &nbsp; Reportes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Roles" asp-action="Index">
+                                        <i class="fas fa-check-double "></i> Reporte Beneficiarios
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="Index">
+                                        <i class="fas fa-user"></i> Reporte Patrocinadores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Modulos" asp-action="Index">
+                                        <i class="fas fa-user-check"></i> Reporte Colaboradores
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-shield-alt"></i> &nbsp; Seguridad
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Roles" asp-action="Index">
+                                        <i class="fas fa-check-double "></i> Roles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="Index">
+                                        <i class="fas fa-user"></i> Usuarios
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Modulos" asp-action="Index">
+                                        <i class="fas fa-user-check"></i> Modulos
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+
+                                                            
+                    </ul>
+                    <!--Mostrar nombre de usuario-->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="CerrarSesion">
+                                <i class="fas fa-power-off"></i>&nbsp; Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+               
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - appbeneficiencia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
