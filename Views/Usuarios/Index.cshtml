@@ -1,0 +1,49 @@
+﻿@model IEnumerable<appbeneficiencia.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Registro Usuarios</h1>
+
+<p>
+    <style>
+        .btn-no-underline {
+            text-decoration: none;
+        }
+    </style>
+
+    <button type="button" class="btn btn-outline-info">
+        <a asp-action="Create" class="btn-no-underline">Nuevo Registro</a>
+    </button>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Correo Electrónico</th>
+                <th>Estado</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NombreUsuario)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdRolNavigation.Nombre)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-outline-success">Cambiar Contraseña</a>
+                        <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-outline-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

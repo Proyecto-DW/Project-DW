@@ -1,0 +1,58 @@
+﻿ ﻿@{
+    ViewData["Title"] = "";
+}
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <div class="text-center mt-5">
+                <div class="container">
+                    <img src="~/theme/dist/img/Logotipo-01.png" alt="Imagen de perfil" class="img-fluid" style="max-width: 40%; height: auto;" />
+                </div>
+                <p> Compassion <a href="https://compassiongt.org/compassionguatemala/" target="_blank">Compassiongt.org</a>.</p>
+            </div>
+            <hr />
+            <div style="text-align: center; font-family: 'Lucida Calligraphy', cursive; color: blueviolet">
+                <br />
+                <h2>Liberando a los niños de la pobreza </h2>
+            </div>
+            <div style="text-align: center; font-family: 'Lucida Calligraphy', cursive; color: yellowgreen">
+                <h2>en el nombre de Jesús </h2>
+            </div>
+            <br />
+            <style>
+                .text-center p {
+                    font-family: 'Century Gothic'; /* Tipo de letra */
+                    font-size: 18px; /* Tamaño de fuente */
+                    color: #333; /* Color del texto */
+                    font-weight: normal; /* Peso de la fuente (normal, bold, etc.) */
+                    line-height: 1.6; /* Altura de línea */
+                }
+            </style>
+
+            <div class="container">
+                <ul class="list-unstyled">
+                    <asp:Repeater ID="rptObjetivos" runat="server">
+                        <ItemTemplate>
+                            <li>
+                                <div class="text-center">
+                                    <p>Compassion Internacional es una organización cristiana-evangélica que busca dar respuesta a las necesidades de niños y jóvenes que viven en condición de pobreza.</p>
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
+            </div>
+
+
+        </div>
+    </form>
+</body>
+</html>

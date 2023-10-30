@@ -1,0 +1,90 @@
+﻿@model IEnumerable<appbeneficiencia.Models.Colaboradore>
+
+@{
+    ViewData["Title"] = "Colaboradores";
+}
+
+<h1>Registro Colaboradores</h1>
+
+<p>
+    <style>
+        .btn-no-underline {
+            text-decoration: none;
+        }
+    </style>
+
+    <button type="button" class="btn btn-outline-info">
+        <a asp-action="Create" class="btn-no-underline"> Nuevo Registro </a>
+    </button>
+
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="custom-nombre-completo">
+                    Colaborador
+                </th>
+                <th class="custom-DPI">
+                    No. DPI
+                </th>
+                <th class="custom-correo">
+                    Correo Electrónico
+                </th>
+                <th class="custom-Direccion">
+                    Dirección
+                </th>
+                <th class="custom-Telefono">
+                    No. Teléfono
+                </th>
+                <th class="custom-Fecha-nacimiento">
+                    Fec.Nacimiento
+                </th>
+                <th class="custom-genero">
+                    Género
+                </th>
+                <th class="custom-puesto">
+                    Rol
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dpi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Correo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPuestoNavigation.NombrePuesto)
+                </td>
+                <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdColaborador" class="btn btn-outline-success">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.IdColaborador" class="btn btn-outline-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.IdColaborador" class="btn btn-outline-danger">Elimiar</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
