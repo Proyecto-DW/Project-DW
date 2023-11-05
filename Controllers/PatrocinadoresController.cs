@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+//Creación del Controlador Patrocinadores
 namespace appbeneficiencia.Controllers
 {
     public class PatrocinadoresController : Controller
