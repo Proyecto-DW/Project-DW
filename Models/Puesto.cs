@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace appbeneficiencia.Models;
+﻿namespace appbeneficiencia.Models;
 
 public partial class Puesto
 {
-    public int Id { get; set; }
+    /// <summary>
+    /// Id Puesto
+    /// </summary>
+    public int IdPuesto { get; set; }
 
-    public string? NombrePuesto { get; set; }
+    /// <summary>
+    /// Nombre Puesto
+    /// </summary>
+    public string NombrePuesto { get; set; } = null!;
 
-    public DateTime? FechaCreacion { get; set; }
+    /// <summary>
+    /// Fecha Creación
+    /// </summary>
+    public DateTime FechaCreacion { get; set; }
 
     public virtual ICollection<Colaboradore> Colaboradores { get; set; } = new List<Colaboradore>();
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace appbeneficiencia.Models;
+﻿namespace appbeneficiencia.Models;
 
 public partial class Beneficio
 {
@@ -9,7 +6,13 @@ public partial class Beneficio
 
     public string? Nombre { get; set; }
 
-    public string? Descripcion { get; set; }
+    public string? DetalleBeneficio { get; set; }
 
-    public virtual ICollection<Patrocinadore> Patrocinadores { get; set; } = new List<Patrocinadore>();
+    public string? Soporte { get; set; }
+
+    public int? IdPatrocinador { get; set; }
+
+    public virtual ICollection<AsignacionBeneficio> AsignacionBeneficios { get; set; } = new List<AsignacionBeneficio>();
+
+    public virtual Patrocinadore? IdPatrocinadorNavigation { get; set; }
 }

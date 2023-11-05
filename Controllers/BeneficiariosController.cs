@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using appbeneficiencia.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using appbeneficiencia.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Controllers
 {
@@ -20,10 +16,9 @@ namespace appbeneficiencia.Controllers
         }
 
         // GET: Beneficiarios
-        // Carga test Lore
         public async Task<IActionResult> Index()
         {
-            var beneficiariosdbContext = _context.Beneficiarios.Include(b => b.IdColaboradorNavigation).Include(b => b.IdPadreNavigation);
+            var beneficiariosdbContext = _context.Beneficiarios.Include(b => b.IdColaboradorNavigation);
             return View(await beneficiariosdbContext.ToListAsync());
         }
 
@@ -37,7 +32,6 @@ namespace appbeneficiencia.Controllers
 
             var beneficiario = await _context.Beneficiarios
                 .Include(b => b.IdColaboradorNavigation)
-                .Include(b => b.IdPadreNavigation)
                 .FirstOrDefaultAsync(m => m.IdBeneficiario == id);
             if (beneficiario == null)
             {
@@ -50,8 +44,7 @@ namespace appbeneficiencia.Controllers
         // GET: Beneficiarios/Create
         public IActionResult Create()
         {
-            ViewBag.IdColaborador = new SelectList(_context.Colaboradores, "IdColaborador", "NombreCompleto"); // Cambié "IdColaborador" a "NombreCompleto" para mostrar los nombres en lugar de identificadores
-            ViewBag.IdPadre = new SelectList(_context.PadresDeFamilia, "IdPadre", "NombreCompletoPadre"); // Cambié "IdPadre" a "NombreCompletoPadre" para mostrar los nombres en lugar de identificadores
+            ViewData["IdColaborador"] = new SelectList(_context.Colaboradores, "IdColaborador", "NombreCompleto");
             return View();
         }
 
@@ -60,7 +53,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdBeneficiario,NombreCompleto,FechaNacimiento,Genero,Direccion,CodigoBeneficiario,Nivel,Telefono,IdPadre,Estado,IdColaborador")] Beneficiario beneficiario)
+        public async Task<IActionResult> Create([Bind("IdBeneficiario,NombreCompleto,FechaNacimiento,Edad,Genero,Direccion,TelefonoBeneficiario,CodigoBeneficiario,Nivel,NombrePadre,Dpipadre,TelefonoPadre,DireccionPadre,NombreMadre,Dpimadre,TelefonoMadre,DireccionMadre,TelefonoPrincipal,TelefonoSecundario,IdColaborador,Estado")] Beneficiario beneficiario)
         {
             if (ModelState.IsValid)
             {
@@ -68,8 +61,7 @@ namespace appbeneficiencia.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdColaborador"] = new SelectList(_context.Colaboradores, "IdColaborador", "IdColaborador", beneficiario.IdColaborador);
-            ViewData["IdPadre"] = new SelectList(_context.PadresDeFamilia, "IdPadre", "IdPadre", beneficiario.IdPadre);
+            ViewData["IdColaborador"] = new SelectList(_context.Colaboradores, "IdColaborador", "NombreCompleto", beneficiario.IdColaborador);
             return View(beneficiario);
         }
 
@@ -86,10 +78,7 @@ namespace appbeneficiencia.Controllers
             {
                 return NotFound();
             }
-
-            ViewBag.IdColaborador = new SelectList(_context.Colaboradores, "IdColaborador", "NombreCompleto");
-            ViewBag.IdPadre = new SelectList(_context.PadresDeFamilia, "IdPadre", "NombreCompletoPadre");
-
+            ViewData["IdColaborador"] = new SelectList(_context.Colaboradores, "IdColaborador", "NombreCompleto", beneficiario.IdColaborador);
             return View(beneficiario);
         }
 
@@ -98,7 +87,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdBeneficiario,NombreCompleto,FechaNacimiento,Genero,Direccion,CodigoBeneficiario,Nivel,Telefono,IdPadre,Estado,IdColaborador")] Beneficiario beneficiario)
+        public async Task<IActionResult> Edit(int id, [Bind("IdBeneficiario,NombreCompleto,FechaNacimiento,Edad,Genero,Direccion,TelefonoBeneficiario,CodigoBeneficiario,Nivel,NombrePadre,Dpipadre,TelefonoPadre,DireccionPadre,NombreMadre,Dpimadre,TelefonoMadre,DireccionMadre,TelefonoPrincipal,TelefonoSecundario,IdColaborador,Estado")] Beneficiario beneficiario)
         {
             if (id != beneficiario.IdBeneficiario)
             {
@@ -126,7 +115,6 @@ namespace appbeneficiencia.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdColaborador"] = new SelectList(_context.Colaboradores, "IdColaborador", "IdColaborador", beneficiario.IdColaborador);
-            ViewData["IdPadre"] = new SelectList(_context.PadresDeFamilia, "IdPadre", "IdPadre", beneficiario.IdPadre);
             return View(beneficiario);
         }
 
@@ -140,7 +128,6 @@ namespace appbeneficiencia.Controllers
 
             var beneficiario = await _context.Beneficiarios
                 .Include(b => b.IdColaboradorNavigation)
-                .Include(b => b.IdPadreNavigation)
                 .FirstOrDefaultAsync(m => m.IdBeneficiario == id);
             if (beneficiario == null)
             {
@@ -164,11 +151,10 @@ namespace appbeneficiencia.Controllers
             {
                 _context.Beneficiarios.Remove(beneficiario);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         //METODO QUE PERMITE CALCULAR A LOS NIÑOS QUE ESTAN POR CUMPLIR AÑOS
         public async Task<IActionResult> BeneficiariosCumplenAnios()
         {
@@ -176,7 +162,7 @@ namespace appbeneficiencia.Controllers
             var fechaActual = DateTime.Today;
 
             // Construye una consulta SQL personalizada para obtener beneficiarios por trimestre
-            var sqlQuery = "SELECT * FROM Beneficiarios " +
+            var sqlQuery = "SELECT * FROM Beneficiario " +
                            "WHERE DATEPART(quarter, FechaNacimiento) = DATEPART(quarter, @FechaActual)";
 
             var beneficiariosCumplenAnios = await _context.Beneficiarios
@@ -188,9 +174,11 @@ namespace appbeneficiencia.Controllers
 
 
 
+
+
         private bool BeneficiarioExists(int id)
         {
-          return (_context.Beneficiarios?.Any(e => e.IdBeneficiario == id)).GetValueOrDefault();
+            return (_context.Beneficiarios?.Any(e => e.IdBeneficiario == id)).GetValueOrDefault();
         }
     }
 }

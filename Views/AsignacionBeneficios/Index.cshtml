@@ -1,0 +1,54 @@
+﻿@model IEnumerable<appbeneficiencia.Models.AsignacionBeneficio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-4">
+    <h1>Índice</h1>
+
+    <div class="text-right mb-3">
+        <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+        <a asp-action="ExportToExcel" class="btn btn-success">Descargar Reporte Excel</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Descripción del Beneficio</th>
+                    <th>Fecha de Asignación</th>
+                    <th>Monto</th>
+                    <th>DPI</th>
+                    <th>Parentesco</th>
+                    <th>Comentarios</th>
+                    <th>Beneficiario</th>
+                    <th>Beneficio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.DescripcionBeneficio)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FechaAsignacion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Monto)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Dpi)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Parentesco)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Comentarios)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IdBeneficiarioNavigation.IdBeneficiario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.IdBeneficioNavigation.IdBeneficio)</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Edit" asp-route-id="@item.IdAsignacion" class="btn btn-sm btn-primary">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.IdAsignacion" class="btn btn-sm btn-info">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdAsignacion" class="btn btn-sm btn-danger">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,21 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace appbeneficiencia.Models;
+﻿namespace appbeneficiencia.Models;
 
 public partial class Patrocinadore
 {
     public int IdPatrocinador { get; set; }
 
+    /// <summary>
+    /// Código Referencia
+    /// </summary>
+    public string? CodigoReferencia { get; set; }
+
+    /// <summary>
+    /// Código Pais
+    /// </summary>
     public string? CodigoPais { get; set; }
 
-    public bool Estado { get; set; }
+    /// <summary>
+    /// Estado
+    /// </summary>
+    public bool? Estado { get; set; }
 
-    public string? Soporte { get; set; }
+    /// <summary>
+    /// Fecha Registro
+    /// </summary>
+    public DateTime? FechaRegistro { get; set; }
 
-    public int? TipoBeneficio { get; set; }
-
-    public virtual ICollection<AsignacionBeneficio> AsignacionBeneficios { get; set; } = new List<AsignacionBeneficio>();
-
-    public virtual Beneficio? TipoBeneficioNavigation { get; set; }
+    public virtual ICollection<Beneficio> Beneficios { get; set; } = new List<Beneficio>();
 }
