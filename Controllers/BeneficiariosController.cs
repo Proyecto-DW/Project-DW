@@ -20,6 +20,7 @@ namespace appbeneficiencia.Controllers
         }
 
         // GET: Beneficiarios
+        // este es un comentario de prueba
         public async Task<IActionResult> Index()
         {
             var beneficiariosdbContext = _context.Beneficiarios.Include(b => b.IdColaboradorNavigation).Include(b => b.IdPadreNavigation);
