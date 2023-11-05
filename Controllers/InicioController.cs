@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
+
+//Se Crea el controlador de INICIO
 namespace appbeneficiencia.Controllers
 {
     public class InicioController : Controller
