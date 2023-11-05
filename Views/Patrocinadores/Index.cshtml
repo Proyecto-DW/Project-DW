@@ -1,67 +1,61 @@
 ﻿@model IEnumerable<appbeneficiencia.Models.Patrocinadore>
 
 @{
-    ViewData["Title"] = "Patrocinador";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Registro Patrocinador</h1>
+<div class="container">
+    <h1>Listado de Patrocinadores</h1>
 
-<p>
-    <style>
-        .btn-no-underline {
-            text-decoration: none;
-        }
-    </style>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+    </p>
 
-    <button type="button" class="btn btn-outline-info">
-        <a asp-action="Create" class="btn-no-underline"> Nuevo Registro </a>
-    </button>
-
-</p>
- <div class="table-responsive">
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th class="custom-codigo-pais">
-                    Cod. País
-                </th>
-                <th class="custom-estado">
-                    Estado
-                 </th>
-                <th class="custom-soporte">
-                    Soporte
-                </th>
-                <th class="custom-tipo-beneficio">
-                    Beneficio
-                </th>
-                <th>Acciones</th>
-            
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CodigoPais)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Soporte)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoBeneficioNavigation.Nombre)
-                </td>
-                <td>
-
-                    <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.IdPatrocinador" class="btn btn-outline-success">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.IdPatrocinador" class="btn btn-outline-info">Detalles</a>
-                            <a asp-action="Delete" asp-route-id="@item.IdPatrocinador" class="btn btn-outline-danger">Eliminar</a>
-                    </div>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodigoReferencia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CodigoPais)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaRegistro)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodigoReferencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CodigoPais)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaRegistro)
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Edit" asp-route-id="@item.IdPatrocinador" class="btn btn-primary">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.IdPatrocinador" class="btn btn-info">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.IdPatrocinador" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

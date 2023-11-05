@@ -172,11 +172,13 @@ namespace appbeneficiencia.Controllers
             return View(beneficiariosCumplenAnios);
         }
 
+
+
+
+
         private bool BeneficiarioExists(int id)
         {
             return (_context.Beneficiarios?.Any(e => e.IdBeneficiario == id)).GetValueOrDefault();
         }
     }
 }
-
-
