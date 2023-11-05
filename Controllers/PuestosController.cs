@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+//Creación Controlador Puestos
 namespace appbeneficiencia.Controllers
 {
     public class PuestosController : Controller
