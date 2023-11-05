@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-//Creacion de Controlador de Módulo
+//Creacion de Controlador de Módulos
 namespace appbeneficiencia.Controllers
 {
     public class ModulosController : Controller
