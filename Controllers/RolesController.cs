@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+//Controlador Roles
 namespace appbeneficiencia.Controllers
 {
     public class RolesController : Controller
