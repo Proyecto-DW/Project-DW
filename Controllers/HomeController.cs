@@ -8,6 +8,7 @@ using System.Security.Claims;
 namespace appbeneficiencia.Controllers
 {
     //[Authorize]   ---- Descomentar
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
