@@ -1,53 +1,66 @@
 ﻿@model IEnumerable<appbeneficiencia.Models.Beneficio>
 
 @{
-    ViewData["Title"] = "Beneficios";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Beneficios</h1>
+<div class="container">
+    <h1>Beneficios</h1>
 
-<p>
-    <style>
-        .btn-no-underline {
-            text-decoration: none;
-        }
-    </style>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+    </p>
 
-    <button type="button" class="btn btn-outline-info">
-        <a asp-action="Create" class="btn-no-underline"> Nuevo Registro </a>
-    </button>
-
-</p>
-
-<div class="table-responsive">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th class="custom-nombre-completo">
-                    Beneficios
-                </th>
-                <th class="custom-descripcion">
-                    Descripción
-                </th>
-                <th> Acciones</th>
-            </tr>
-    </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdBeneficio" class="btn btn-outline-success">Editar</a>
-                        <a asp-action="Details" asp-route-id="@item.IdBeneficio" class="btn btn-outline-info">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.IdBeneficio" class="btn btn-outline-danger">Eliminar</a>
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Nombre
+                            </th>
+                            <th>
+                                Detalle del Beneficio
+                            </th>
+                            <th>
+                                Soporte
+                            </th>
+                            <th>
+                                Patrocinador
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DetalleBeneficio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Soporte)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdPatrocinadorNavigation.IdPatrocinador)
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a asp-action="Edit" asp-route-id="@item.IdBeneficio" class="btn btn-primary">Editar</a>
+                                        <a asp-action="Details" asp-route-id="@item.IdBeneficio" class="btn btn-info">Detalles</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdBeneficio" class="btn btn-danger">Eliminar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+

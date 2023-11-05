@@ -1,8 +1,12 @@
 ﻿@model appbeneficiencia.Models.Puesto
 
 @{
-    ViewData["Title"] = "Eliminar Puesto";
+    ViewData["Title"] = "Delete";
 }
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Puesto</h4>
     <hr />
@@ -22,9 +26,8 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <br />
-        <input type="submit" value="Eliminar" class="btn btn-outline-danger" />
-        <a asp-action="Index" class="btn btn-outline-info">Regresar</a>
+        <input type="hidden" asp-for="IdPuesto" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
     </form>
 </div>

@@ -3,55 +3,76 @@
     ViewData["Title"] = "Beneficiarios que Cumplen Años Próximamente";
 }
 
-<h2>Beneficiarios que Cumplen Años Próximamente</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Beneficiarios que Cumplen Años Próximamente</h2>
 
-@if (Model.Any())
-{
-    <!--vista de tabla-->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Edad</th>
-                <th>Fecha de Cumpleaños</th>
-                <th>Mes de Cumpleaños</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                var beneficiariosOrdenados = Model
-                .Select(b => new
+        <div class="row">
+            <div class="col">
+                @if (Model.Any())
                 {
-                    Beneficiario = b,
-                    ProximoCumpleaños = GetProximoCumpleaños(b.FechaNacimiento)
-                })
-                .OrderBy(b => b.ProximoCumpleaños.Month);
-            }
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Fecha de Nacimiento</th>
+                                    <th>Edad</th>
+                                    <th>Fecha de Cumpleaños </th>
+                                    <th>Mes de Cumpleaños</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var beneficiariosOrdenados = Model
+                                    .Select(b => new
+                                    {
+                                        Beneficiario = b,
+                                        ProximoCumpleaños = GetProximoCumpleaños(b.FechaNacimiento)
+                                    })
+                                    .OrderBy(b => b.ProximoCumpleaños.Month);
+                                }
 
-            @foreach (var item in beneficiariosOrdenados)
-            {
-                var beneficiario = item.Beneficiario;
-                var proximoCumpleaños = item.ProximoCumpleaños;
-                var nombreMes = proximoCumpleaños.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
+                                @foreach (var item in beneficiariosOrdenados)
+                                {
+                                    var beneficiario = item.Beneficiario;
+                                    var proximoCumpleaños = item.ProximoCumpleaños;
+                                    var nombreMes = proximoCumpleaños.ToString("MMMM", new System.Globalization.CultureInfo("es-ES"));
 
-                <tr>
-                    <td>@beneficiario.NombreCompleto</td>
-                    <td>@(beneficiario.FechaNacimiento?.ToShortDateString())</td>
-                    <td>@(CalcularEdad(beneficiario.FechaNacimiento))</td>
-                    <td>
-                        @proximoCumpleaños.ToString("dd/MM/yyyy") <i class="fas fa-birthday-cake"></i>
-                    </td>
-                    <td>@nombreMes</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No hay beneficiarios que cumplan años próximamente.</p>
-}
+                                    <tr>
+                                        <td>@beneficiario.NombreCompleto</td>
+                                        <td>@(beneficiario.FechaNacimiento.ToShortDateString())</td>
+                                        <td>@(CalcularEdad(beneficiario.FechaNacimiento))</td>
+                                        <td>
+                                            @proximoCumpleaños.ToString("dd/MM/yyyy")<i class="fas fa-birthday-cake"></i>
+                                            <span class="badge bg-warning text-dark">Cumpleaños</span>
+                                        </td>
+                                        <td>@nombreMes</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p>No hay beneficiarios que cumplan años próximamente.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
 
 @functions {
     int CalcularEdad(DateTime? fechaNacimiento)

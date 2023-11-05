@@ -1,109 +1,58 @@
 ﻿@model IEnumerable<appbeneficiencia.Models.Beneficiario>
 
 @{
-    ViewData["Title"] = "Participantes";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Registro Participantes</h1>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Datos Relevantes del Beneficiario</h1>
 
-<p>
-    <style>
-        .btn-no-underline {
-            text-decoration: none;
-        }
-    </style>
+            <p>
+                <a asp-action="Create" class="btn btn-primary">Crear Nuevo</a>
+            </p>
 
-    <button type="button" class="btn btn-outline-info">
-        <a asp-action="Create" class="btn-no-underline"> Nuevo Registro </a>
-    </button>
-</p>
-
-<div class="table-responsive">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th class="custom-nombre-completo">
-                    Participante
-                </th>
-                <th class="custom-fecha-nacimiento">
-                    Fec.Nacimiento
-                </th>
-                <th class="custom-genero">
-                    Género
-                </th>
-                <th>
-                    Dirección
-                </th>
-                <th>
-                    Cod. Beneficiario
-                </th>
-                <th>
-                    Nivel
-                </th>
-                <th>
-                    Teléfono
-                </th>
-                <th>
-                    Estado
-                </th>
-                <th>
-                    Colaborador
-                </th>
-                <th>
-                    Nombre Padre
-                </th>
-                <th>
-                    Nombre Madre
-                </th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td class="custom-nombre-completo">
-                        @Html.DisplayFor(modelItem => item.NombreCompleto)
-                    </td>
-                    <td class="custom-fecha-nacimiento">
-                        @Html.DisplayFor(modelItem => item.FechaNacimiento)
-                    </td>
-                    <td class="custom-genero">
-                        @Html.DisplayFor(modelItem => item.Genero)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Direccion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CodigoBeneficiario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nivel)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Telefono)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Estado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdColaboradorNavigation.NombreCompleto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPadreNavigation.NombreCompletoPadre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPadreNavigation.NombreCompletoMadre)
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.IdBeneficiario" class="btn btn-outline-success">Editar</a>
-                            <a asp-action="Details" asp-route-id="@item.IdBeneficiario" class="btn btn-outline-info">Detalles</a>
-                            <a asp-action="Delete" asp-route-id="@item.IdBeneficiario" class="btn btn-outline-danger">Eliminar</a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Completo</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Edad</th>
+                            <th>Género</th>
+                            <th>Dirección</th>
+                            <th>Teléfono Beneficiario</th>
+                            <th>Estado</th>
+                            <th>Nivel</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.NombreCompleto)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Edad)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Genero)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                                <td>@Html.DisplayFor(modelItem => item.TelefonoBeneficiario)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nivel)</td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Acciones">
+                                        <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.IdBeneficiario">Actualizar</a>
+                                        <a asp-action="Details" class="btn btn-success" asp-route-id="@item.IdBeneficiario">Detalles</a>
+                                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.IdBeneficiario">Eliminar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+

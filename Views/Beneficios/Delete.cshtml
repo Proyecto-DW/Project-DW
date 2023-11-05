@@ -1,9 +1,12 @@
 ﻿@model appbeneficiencia.Models.Beneficio
 
 @{
-    ViewData["Title"] = "Eliminar Beneficio";
+    ViewData["Title"] = "Delete";
 }
 
+<h1>Eliminar Beneficios</h1>
+
+<h3>¿Desea Eliminar los beneficios?</h3>
 <div>
     <h4>Beneficio</h4>
     <hr />
@@ -15,17 +18,28 @@
             @Html.DisplayFor(model => model.Nombre)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayNameFor(model => model.DetalleBeneficio)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
+            @Html.DisplayFor(model => model.DetalleBeneficio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Soporte)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Soporte)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdPatrocinadorNavigation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdPatrocinadorNavigation.IdPatrocinador)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdBeneficio" />
-        <br />
-        <input type="submit" value="Delete" class="btn btn-outline-danger" />
-        <a asp-action="Index" class="btn btn-outline-info">Regresar</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Regresar</a>
     </form>
 </div>

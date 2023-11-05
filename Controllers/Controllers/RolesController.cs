@@ -4,87 +4,87 @@ using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Controllers
 {
-    public class PatrocinadoresController : Controller
+    public class RolesController : Controller
     {
         private readonly BeneficiariosdbContext _context;
 
-        public PatrocinadoresController(BeneficiariosdbContext context)
+        public RolesController(BeneficiariosdbContext context)
         {
             _context = context;
         }
 
-        // GET: Patrocinadores
+        // GET: Roles
         public async Task<IActionResult> Index()
         {
-            return _context.Patrocinadores != null ?
-                        View(await _context.Patrocinadores.ToListAsync()) :
-                        Problem("Entity set 'BeneficiariosdbContext.Patrocinadores'  is null.");
+            return _context.Roles != null ?
+                        View(await _context.Roles.ToListAsync()) :
+                        Problem("Entity set 'BeneficiariosdbContext.Roles'  is null.");
         }
 
-        // GET: Patrocinadores/Details/5
+        // GET: Roles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Patrocinadores == null)
+            if (id == null || _context.Roles == null)
             {
                 return NotFound();
             }
 
-            var patrocinadore = await _context.Patrocinadores
-                .FirstOrDefaultAsync(m => m.IdPatrocinador == id);
-            if (patrocinadore == null)
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(m => m.IdRol == id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(patrocinadore);
+            return View(role);
         }
 
-        // GET: Patrocinadores/Create
+        // GET: Roles/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Patrocinadores/Create
+        // POST: Roles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPatrocinador,CodigoReferencia,CodigoPais,Estado,FechaRegistro")] Patrocinadore patrocinadore)
+        public async Task<IActionResult> Create([Bind("IdRol,Nombre")] Role role)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(patrocinadore);
+                _context.Add(role);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(patrocinadore);
+            return View(role);
         }
 
-        // GET: Patrocinadores/Edit/5
+        // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Patrocinadores == null)
+            if (id == null || _context.Roles == null)
             {
                 return NotFound();
             }
 
-            var patrocinadore = await _context.Patrocinadores.FindAsync(id);
-            if (patrocinadore == null)
+            var role = await _context.Roles.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
-            return View(patrocinadore);
+            return View(role);
         }
 
-        // POST: Patrocinadores/Edit/5
+        // POST: Roles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPatrocinador,CodigoReferencia,CodigoPais,Estado,FechaRegistro")] Patrocinadore patrocinadore)
+        public async Task<IActionResult> Edit(int id, [Bind("IdRol,Nombre")] Role role)
         {
-            if (id != patrocinadore.IdPatrocinador)
+            if (id != role.IdRol)
             {
                 return NotFound();
             }
@@ -93,12 +93,12 @@ namespace appbeneficiencia.Controllers
             {
                 try
                 {
-                    _context.Update(patrocinadore);
+                    _context.Update(role);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PatrocinadoreExists(patrocinadore.IdPatrocinador))
+                    if (!RoleExists(role.IdRol))
                     {
                         return NotFound();
                     }
@@ -109,49 +109,49 @@ namespace appbeneficiencia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(patrocinadore);
+            return View(role);
         }
 
-        // GET: Patrocinadores/Delete/5
+        // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Patrocinadores == null)
+            if (id == null || _context.Roles == null)
             {
                 return NotFound();
             }
 
-            var patrocinadore = await _context.Patrocinadores
-                .FirstOrDefaultAsync(m => m.IdPatrocinador == id);
-            if (patrocinadore == null)
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(m => m.IdRol == id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(patrocinadore);
+            return View(role);
         }
 
-        // POST: Patrocinadores/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Patrocinadores == null)
+            if (_context.Roles == null)
             {
-                return Problem("Entity set 'BeneficiariosdbContext.Patrocinadores'  is null.");
+                return Problem("Entity set 'BeneficiariosdbContext.Roles'  is null.");
             }
-            var patrocinadore = await _context.Patrocinadores.FindAsync(id);
-            if (patrocinadore != null)
+            var role = await _context.Roles.FindAsync(id);
+            if (role != null)
             {
-                _context.Patrocinadores.Remove(patrocinadore);
+                _context.Roles.Remove(role);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PatrocinadoreExists(int id)
+        private bool RoleExists(int id)
         {
-            return (_context.Patrocinadores?.Any(e => e.IdPatrocinador == id)).GetValueOrDefault();
+            return (_context.Roles?.Any(e => e.IdRol == id)).GetValueOrDefault();
         }
     }
 }
