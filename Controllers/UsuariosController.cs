@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
+
+//Usuarios
 namespace appbeneficiencia.Controllers
 {
     public class UsuariosController : Controller
