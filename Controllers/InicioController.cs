@@ -11,10 +11,7 @@ namespace appbeneficiencia.Controllers
     public class InicioController : Controller
     {
         private readonly IUsuarioService _usuarioServicio;
-        public InicioController(IUsuarioService usuarioServicio)
-        {
-            _usuarioServicio = usuarioServicio;
-        }
+        public InicioController(IUsuarioService usuarioServicio) => _usuarioServicio = usuarioServicio;
 
         public IActionResult Registrarse()
         {
