@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Models;
 
@@ -27,8 +25,6 @@ public partial class BeneficiariosdbContext : DbContext
 
     public virtual DbSet<Operacion> Operacions { get; set; }
 
-    public virtual DbSet<PadresDeFamilium> PadresDeFamilia { get; set; }
-
     public virtual DbSet<Patrocinadore> Patrocinadores { get; set; }
 
     public virtual DbSet<Puesto> Puestos { get; set; }
@@ -39,7 +35,10 @@ public partial class BeneficiariosdbContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -47,104 +46,158 @@ public partial class BeneficiariosdbContext : DbContext
         {
             entity.HasKey(e => e.IdAsignacion).HasName("PK__Asignaci__A7235DFF8A358FB8");
 
-            entity.HasIndex(e => e.IdBeneficiario, "IX_AsignacionBeneficios_IdBeneficiario");
-
-            entity.HasIndex(e => e.IdPatrocinador, "IX_AsignacionBeneficios_IdBeneficio");
-
+            entity.Property(e => e.IdAsignacion).HasComment("Id Asignación");
+            entity.Property(e => e.Comentarios).HasColumnType("text");
             entity.Property(e => e.DescripcionBeneficio)
                 .HasMaxLength(250)
-                .IsUnicode(false);
-            entity.Property(e => e.Dpi).HasColumnName("DPI");
-            entity.Property(e => e.FechaAsignacion).HasColumnType("date");
-            entity.Property(e => e.FirmaRecibido)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasComment("Descripcion Beneficio");
+            entity.Property(e => e.Dpi)
+                .HasMaxLength(16)
+                .IsFixedLength()
+                .HasComment("DPI Recibe")
+                .HasColumnName("DPI");
+            entity.Property(e => e.FechaAsignacion)
+                .HasComment("Fecha Asignación")
+                .HasColumnType("date");
+            entity.Property(e => e.IdBeneficiario).HasComment("Id Beneficiario");
+            entity.Property(e => e.IdBeneficio).HasComment("Id Beneficio");
             entity.Property(e => e.Monto).HasColumnType("decimal(20, 0)");
             entity.Property(e => e.Parentesco)
                 .HasMaxLength(250)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasComment("Parentesco");
 
             entity.HasOne(d => d.IdBeneficiarioNavigation).WithMany(p => p.AsignacionBeneficios)
                 .HasForeignKey(d => d.IdBeneficiario)
-                .HasConstraintName("FK_AsignacionBeneficios_Beneficiarios");
+                .HasConstraintName("FK_AsignacionBeneficios_Beneficiario");
 
-            entity.HasOne(d => d.IdPatrocinadorNavigation).WithMany(p => p.AsignacionBeneficios)
-                .HasForeignKey(d => d.IdPatrocinador)
-                .HasConstraintName("FK_AsignacionBeneficios_Patrocinadores");
+            entity.HasOne(d => d.IdBeneficioNavigation).WithMany(p => p.AsignacionBeneficios)
+                .HasForeignKey(d => d.IdBeneficio)
+                .HasConstraintName("FK_AsignacionBeneficios_Beneficio");
         });
 
         modelBuilder.Entity<Beneficiario>(entity =>
         {
-            entity.HasKey(e => e.IdBeneficiario).HasName("PK__Benefici__3D23355FCE2D3011");
+            entity.HasKey(e => e.IdBeneficiario).HasName("PK_Beneficiario2");
 
-            entity.HasIndex(e => e.IdPadre, "IX_Beneficiarios_IdPadre");
+            entity.ToTable("Beneficiario");
 
             entity.Property(e => e.CodigoBeneficiario)
                 .HasMaxLength(11)
                 .IsUnicode(false);
             entity.Property(e => e.Direccion)
-                .HasMaxLength(255)
+                .HasMaxLength(120)
                 .IsUnicode(false);
+            entity.Property(e => e.DireccionMadre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.DireccionPadre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Dpimadre)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("DPIMadre");
+            entity.Property(e => e.Dpipadre)
+                .HasMaxLength(16)
+                .IsUnicode(false)
+                .HasColumnName("DPIPadre");
             entity.Property(e => e.FechaNacimiento).HasColumnType("date");
             entity.Property(e => e.Genero)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Nivel)
-                .HasMaxLength(50)
+                .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.NombreCompleto)
-                .HasMaxLength(255)
+                .HasMaxLength(80)
                 .IsUnicode(false);
-            entity.Property(e => e.Telefono)
-                .HasMaxLength(8)
-                .IsUnicode(false)
-                .HasComment("Telefono del Beneficiario");
+            entity.Property(e => e.NombreMadre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.NombrePadre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.TelefonoBeneficiario)
+                .HasMaxLength(9)
+                .IsUnicode(false);
+            entity.Property(e => e.TelefonoMadre)
+                .HasMaxLength(9)
+                .IsUnicode(false);
+            entity.Property(e => e.TelefonoPadre)
+                .HasMaxLength(9)
+                .IsUnicode(false);
+            entity.Property(e => e.TelefonoPrincipal)
+                .HasMaxLength(9)
+                .IsUnicode(false);
+            entity.Property(e => e.TelefonoSecundario)
+                .HasMaxLength(9)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.IdColaboradorNavigation).WithMany(p => p.Beneficiarios)
                 .HasForeignKey(d => d.IdColaborador)
-                .HasConstraintName("FK_Beneficiarios_Colaboradores");
-
-            entity.HasOne(d => d.IdPadreNavigation).WithMany(p => p.Beneficiarios)
-                .HasForeignKey(d => d.IdPadre)
-                .HasConstraintName("FK_Beneficiarios_PadresDeFamilia");
+                .HasConstraintName("FK_Beneficiario_Colaboradores");
         });
 
         modelBuilder.Entity<Beneficio>(entity =>
         {
-            entity.HasKey(e => e.IdBeneficio).HasName("PK__Benefici__14B7CA0CCD1E7583");
+            entity.HasKey(e => e.IdBeneficio);
 
-            entity.Property(e => e.Descripcion).HasColumnType("text");
+            entity.ToTable("Beneficio");
+
+            entity.Property(e => e.DetalleBeneficio)
+                .HasMaxLength(120)
+                .IsFixedLength();
             entity.Property(e => e.Nombre)
-                .HasMaxLength(255)
-                .IsUnicode(false);
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Soporte)
+                .HasMaxLength(50)
+                .IsFixedLength();
+
+            entity.HasOne(d => d.IdPatrocinadorNavigation).WithMany(p => p.Beneficios)
+                .HasForeignKey(d => d.IdPatrocinador)
+                .HasConstraintName("FK_Beneficio_Patrocinadores");
         });
 
         modelBuilder.Entity<Colaboradore>(entity =>
         {
             entity.HasKey(e => e.IdColaborador).HasName("PK__Colabora__3D2CA512B04CA523");
 
-            entity.HasIndex(e => e.IdPuesto, "IX_Colaboradores_IdPuesto");
-
+            entity.Property(e => e.IdColaborador).HasComment("Id Colaborador");
             entity.Property(e => e.Correo)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsFixedLength()
+                .HasComment("Correo Electrónico");
             entity.Property(e => e.Direccion)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsFixedLength()
+                .HasComment("Dirección");
             entity.Property(e => e.Dpi)
                 .HasMaxLength(15)
-                .IsUnicode(false)
+                .IsFixedLength()
+                .HasComment("DPI Colaborador")
                 .HasColumnName("DPI");
-            entity.Property(e => e.FechaNacimiento).HasColumnType("date");
+            entity.Property(e => e.FechaNacimiento)
+                .HasComment("Fecha Nacimiento")
+                .HasColumnType("date");
             entity.Property(e => e.Genero)
                 .HasMaxLength(10)
-                .IsUnicode(false);
+                .IsFixedLength()
+                .HasComment("Género");
+            entity.Property(e => e.IdPuesto).HasComment("Id Puesto");
             entity.Property(e => e.NombreCompleto)
                 .HasMaxLength(255)
-                .IsUnicode(false);
+                .IsFixedLength()
+                .HasComment("Nombre Completo");
+            entity.Property(e => e.Profesion)
+                .HasMaxLength(120)
+                .IsFixedLength();
             entity.Property(e => e.Telefono)
                 .HasMaxLength(15)
-                .IsUnicode(false);
+                .IsFixedLength()
+                .HasComment("Teléfono");
 
             entity.HasOne(d => d.IdPuestoNavigation).WithMany(p => p.Colaboradores)
                 .HasForeignKey(d => d.IdPuesto)
@@ -170,8 +223,6 @@ public partial class BeneficiariosdbContext : DbContext
 
             entity.ToTable("Operacion");
 
-            entity.HasIndex(e => e.IdModulo, "IX_Operacion_IdModulo");
-
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -181,60 +232,36 @@ public partial class BeneficiariosdbContext : DbContext
                 .HasConstraintName("FK_Operacion_Modulo");
         });
 
-        modelBuilder.Entity<PadresDeFamilium>(entity =>
-        {
-            entity.HasKey(e => e.IdPadre).HasName("PK__PadresDe__045356902EEAB2E3");
-
-            entity.Property(e => e.DireccionPrincipal)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.DireccionSecundaria)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.Dpimadre)
-                .HasMaxLength(13)
-                .IsFixedLength()
-                .HasColumnName("DPIMadre");
-            entity.Property(e => e.Dpipadre)
-                .HasMaxLength(13)
-                .IsFixedLength()
-                .HasColumnName("DPIPadre");
-            entity.Property(e => e.NombreCompletoMadre)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.NombreCompletoPadre)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.TelefonoMadre)
-                .HasMaxLength(8)
-                .IsUnicode(false);
-            entity.Property(e => e.TelefonoPadre)
-                .HasMaxLength(8)
-                .IsUnicode(false);
-        });
-
         modelBuilder.Entity<Patrocinadore>(entity =>
         {
             entity.HasKey(e => e.IdPatrocinador).HasName("PK__Patrocin__FCC34B4F45E077C3");
 
             entity.Property(e => e.CodigoPais)
                 .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.Soporte)
+                .IsUnicode(false)
+                .HasComment("Código Pais");
+            entity.Property(e => e.CodigoReferencia)
                 .HasMaxLength(50)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.TipoBeneficioNavigation).WithMany(p => p.Patrocinadores)
-                .HasForeignKey(d => d.TipoBeneficio)
-                .HasConstraintName("FK_Patrocinadores_Beneficios");
+                .IsFixedLength()
+                .HasComment("Código Referencia");
+            entity.Property(e => e.Estado).HasComment("Estado");
+            entity.Property(e => e.FechaRegistro)
+                .HasComment("Fecha Registro")
+                .HasColumnType("date");
         });
 
         modelBuilder.Entity<Puesto>(entity =>
         {
-            entity.Property(e => e.FechaCreacion).HasColumnType("date");
+            entity.HasKey(e => e.IdPuesto);
+
+            entity.Property(e => e.IdPuesto).HasComment("Id Puesto");
+            entity.Property(e => e.FechaCreacion)
+                .HasComment("Fecha Creación")
+                .HasColumnType("date");
             entity.Property(e => e.NombrePuesto)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasComment("Nombre Puesto");
         });
 
         modelBuilder.Entity<RolOperacion>(entity =>
@@ -242,10 +269,6 @@ public partial class BeneficiariosdbContext : DbContext
             entity.HasKey(e => e.IdAsignacionRol);
 
             entity.ToTable("Rol_operacion");
-
-            entity.HasIndex(e => e.IdOperacion, "IX_Rol_operacion_IdOperacion");
-
-            entity.HasIndex(e => e.IdRol, "IX_Rol_operacion_IdRol");
 
             entity.HasOne(d => d.IdOperacionNavigation).WithMany(p => p.RolOperacions)
                 .HasForeignKey(d => d.IdOperacion)
@@ -268,8 +291,6 @@ public partial class BeneficiariosdbContext : DbContext
         modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.IdUsuario).HasName("PK__Usuarios__5B65BF97B476837D");
-
-            entity.HasIndex(e => e.IdRol, "IX_Usuarios_IdRol");
 
             entity.Property(e => e.Clave)
                 .HasMaxLength(255)

@@ -1,4 +1,5 @@
 ﻿using appbeneficiencia.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using System.Text;
 
 namespace appbeneficiencia.Controllers
 {
+    [Authorize]
     public class UsuariosController : Controller
     {
         private readonly BeneficiariosdbContext _context;

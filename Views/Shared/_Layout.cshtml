@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="~/favicon3.ico" type="image/x-icon" />
+    <link rel="icon" href="~/favicon5.ico" type="image/x-icon" />
     <title>@ViewData["Title"] YeshuaCoban</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: white;">
-                    <img src="~/theme/dist/img/logo3_1.png" alt="Descripción de la imagen" style="width: 50px; height: 50px;">Yeshua Coban
+                    <img src="~/theme/dist/img/logoYeshua1.png" alt="Descripción de la imagen" style="width: 50px; height: 50px;">Yeshua Coban
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -31,21 +31,33 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" asp-area="" asp-controller="Beneficiarios" asp-action="Index">
-                                        <i class="fas fa-child"></i> Agregar Beneficiarios
+                                        <i class="fas fa-child"></i> Ver Beneficiarios
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="PadresFamilia" asp-action="Index">
-                                        <i class="fas fa-people-arrows"></i> Padres de Familia
-                                </a>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Beneficiarios" asp-action="Create">
+                                        <i class="fas fa-user-plus"></i> Agregar Beneficiarios
+                                    </a>
                                 </li>
-
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item" asp-area="" asp-controller="Beneficiarios" asp-action="BeneficiariosCumplenAnios">
-                                        <i class="fas fa-birthday-cake"></i> Proximos Cumpleañeros
+                                        <i class="fas fa-birthday-cake"></i> Próximos Cumpleañeros
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Asignación Beneficios</a></li>
+                                
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="AsignacionBeneficios" asp-action="Index">
+                                        <i class="fas fa-gift"></i> Ver Asignación
+                                    </a>
+                                </li>
+                                
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="AsignacionBeneficios" asp-action="Create">
+                                        <i class="fas fa-gift"></i> Asignar Beneficios
+                                    </a>
+                                </li>
+                                
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -55,12 +67,22 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" asp-area="" asp-controller="Patrocinadores" asp-action="Index">
-                                        <i class="fas fa-user-friends"></i> Agregar Patrocinador
+                                        <i class="fas fa-user-friends"></i> Ver Patrocinadores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Patrocinadores" asp-action="Create">
+                                        <i class="fas fa-user-friends"></i> Crear Patrocinadores
                                     </a>
                                 </li>
                                  <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Beneficios" asp-action="Create">
+                                        <i class="fas fa-gift"></i> Crear Beneficios
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="dropdown-item" asp-area="" asp-controller="Beneficios" asp-action="Index">
-                                        <i class="fas fa-gift"></i> Beneficios
+                                        <i class="fas fa-gift"></i> Mantenimiento Beneficios
                                     </a>
                                 </li>
 
@@ -73,12 +95,22 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" asp-area="" asp-controller="Colaboradores" asp-action="Index">
-                                        <i class="fas fa-user-plus"></i> Registrar Colaborador
+                                        <i class="fas fa-address-card"></i> Ver Colaboradores
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Colaboradores" asp-action="Create">
+                                        <i class="fas fa-user-ninja"></i> Crear Colaborador
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" asp-area="" asp-controller="Puestos" asp-action="Index">
-                                        <i class="fas fa-upload"></i> Puestos
+                                        <i class="fas fa-binoculars"></i> Ver Puestos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Puestos" asp-action="Create">
+                                        <i class="fas fa-address-card"></i> Crear Puestos
                                     </a>
                                 </li>
                    
@@ -92,23 +124,23 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Roles" asp-action="Index">
-                                        <i class="fas fa-check-double "></i> Reporte Beneficiarios
+                                    <a class="dropdown-item disabled" href="#">
+                                        <i class="fas fa-check-double"></i> Reporte Beneficiarios
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="Index">
+                                    <a class="dropdown-item disabled" href="#">
                                         <i class="fas fa-user"></i> Reporte Patrocinadores
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Modulos" asp-action="Index">
+                                    <a class="dropdown-item disabled" href="#">
                                         <i class="fas fa-user-check"></i> Reporte Colaboradores
                                     </a>
                                 </li>
-
                             </ul>
                         </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-shield-alt"></i> &nbsp; Seguridad
@@ -125,7 +157,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Modulos" asp-action="Index">
+                                    <a class="dropdown-item disabled" asp-area="" asp-controller="Modulos" asp-action="Index">
                                         <i class="fas fa-user-check"></i> Modulos
                                     </a>
                                 </li>

@@ -1,10 +1,12 @@
 ﻿using appbeneficiencia.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Controllers
 {
+    [Authorize]
     public class ColaboradoresController : Controller
     {
         private readonly BeneficiariosdbContext _context;
@@ -43,7 +45,7 @@ namespace appbeneficiencia.Controllers
         // GET: Colaboradores/Create
         public IActionResult Create()
         {
-            ViewBag.Puestos = new SelectList(_context.Puestos, "Id", "NombrePuesto");
+            ViewData["IdPuesto"] = new SelectList(_context.Puestos, "IdPuesto", "NombrePuesto");
             return View();
         }
 
@@ -52,7 +54,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdColaborador,NombreCompleto,Dpi,Correo,Direccion,Telefono,FechaNacimiento,Genero,IdPuesto")] Colaboradore colaboradore)
+        public async Task<IActionResult> Create([Bind("IdColaborador,NombreCompleto,Profesion,Dpi,Correo,Direccion,Telefono,FechaNacimiento,Genero,IdPuesto")] Colaboradore colaboradore)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +62,7 @@ namespace appbeneficiencia.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdPuesto"] = new SelectList(_context.Puestos, "Id", "Id", colaboradore.IdPuesto);
+            ViewData["IdPuesto"] = new SelectList(_context.Puestos, "IdPuesto", "NombrePuesto", colaboradore.IdPuesto);
             return View(colaboradore);
         }
 
@@ -77,7 +79,7 @@ namespace appbeneficiencia.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Puestos = new SelectList(_context.Puestos, "Id", "NombrePuesto");
+            ViewData["IdPuesto"] = new SelectList(_context.Puestos, "IdPuesto", "NombrePuesto", colaboradore.IdPuesto);
             return View(colaboradore);
         }
 
@@ -86,7 +88,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdColaborador,NombreCompleto,Dpi,Correo,Direccion,Telefono,FechaNacimiento,Genero,IdPuesto")] Colaboradore colaboradore)
+        public async Task<IActionResult> Edit(int id, [Bind("IdColaborador,NombreCompleto,Profesion,Dpi,Correo,Direccion,Telefono,FechaNacimiento,Genero,IdPuesto")] Colaboradore colaboradore)
         {
             if (id != colaboradore.IdColaborador)
             {
@@ -113,7 +115,7 @@ namespace appbeneficiencia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdPuesto"] = new SelectList(_context.Puestos, "Id", "Id", colaboradore.IdPuesto);
+            ViewData["IdPuesto"] = new SelectList(_context.Puestos, "IdPuesto", "NombrePuesto", colaboradore.IdPuesto);
             return View(colaboradore);
         }
 

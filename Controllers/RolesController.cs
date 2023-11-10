@@ -1,9 +1,11 @@
 ﻿using appbeneficiencia.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly BeneficiariosdbContext _context;

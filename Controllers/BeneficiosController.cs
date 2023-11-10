@@ -1,9 +1,12 @@
 ﻿using appbeneficiencia.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Controllers
 {
+    [Authorize]
     public class BeneficiosController : Controller
     {
         private readonly BeneficiariosdbContext _context;
@@ -16,9 +19,8 @@ namespace appbeneficiencia.Controllers
         // GET: Beneficios
         public async Task<IActionResult> Index()
         {
-            return _context.Beneficios != null ?
-                        View(await _context.Beneficios.ToListAsync()) :
-                        Problem("Entity set 'BeneficiariosdbContext.Beneficios'  is null.");
+            var beneficiariosdbContext = _context.Beneficios.Include(b => b.IdPatrocinadorNavigation);
+            return View(await beneficiariosdbContext.ToListAsync());
         }
 
         // GET: Beneficios/Details/5
@@ -30,6 +32,7 @@ namespace appbeneficiencia.Controllers
             }
 
             var beneficio = await _context.Beneficios
+                .Include(b => b.IdPatrocinadorNavigation)
                 .FirstOrDefaultAsync(m => m.IdBeneficio == id);
             if (beneficio == null)
             {
@@ -42,6 +45,7 @@ namespace appbeneficiencia.Controllers
         // GET: Beneficios/Create
         public IActionResult Create()
         {
+            ViewData["IdPatrocinador"] = new SelectList(_context.Patrocinadores, "IdPatrocinador", "IdPatrocinador");
             return View();
         }
 
@@ -50,7 +54,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdBeneficio,Nombre,Descripcion")] Beneficio beneficio)
+        public async Task<IActionResult> Create([Bind("IdBeneficio,Nombre,DetalleBeneficio,Soporte,IdPatrocinador")] Beneficio beneficio)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +62,7 @@ namespace appbeneficiencia.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdPatrocinador"] = new SelectList(_context.Patrocinadores, "IdPatrocinador", "IdPatrocinador", beneficio.IdPatrocinador);
             return View(beneficio);
         }
 
@@ -74,6 +79,7 @@ namespace appbeneficiencia.Controllers
             {
                 return NotFound();
             }
+            ViewData["IdPatrocinador"] = new SelectList(_context.Patrocinadores, "IdPatrocinador", "IdPatrocinador", beneficio.IdPatrocinador);
             return View(beneficio);
         }
 
@@ -82,7 +88,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdBeneficio,Nombre,Descripcion")] Beneficio beneficio)
+        public async Task<IActionResult> Edit(int id, [Bind("IdBeneficio,Nombre,DetalleBeneficio,Soporte,IdPatrocinador")] Beneficio beneficio)
         {
             if (id != beneficio.IdBeneficio)
             {
@@ -109,6 +115,7 @@ namespace appbeneficiencia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdPatrocinador"] = new SelectList(_context.Patrocinadores, "IdPatrocinador", "IdPatrocinador", beneficio.IdPatrocinador);
             return View(beneficio);
         }
 
@@ -121,6 +128,7 @@ namespace appbeneficiencia.Controllers
             }
 
             var beneficio = await _context.Beneficios
+                .Include(b => b.IdPatrocinadorNavigation)
                 .FirstOrDefaultAsync(m => m.IdBeneficio == id);
             if (beneficio == null)
             {

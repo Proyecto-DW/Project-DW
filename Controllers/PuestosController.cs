@@ -1,9 +1,11 @@
 ﻿using appbeneficiencia.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace appbeneficiencia.Controllers
 {
+    [Authorize]
     public class PuestosController : Controller
     {
         private readonly BeneficiariosdbContext _context;
@@ -30,7 +32,7 @@ namespace appbeneficiencia.Controllers
             }
 
             var puesto = await _context.Puestos
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.IdPuesto == id);
             if (puesto == null)
             {
                 return NotFound();
@@ -50,7 +52,7 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombrePuesto,FechaCreacion")] Puesto puesto)
+        public async Task<IActionResult> Create([Bind("IdPuesto,NombrePuesto,FechaCreacion")] Puesto puesto)
         {
             if (ModelState.IsValid)
             {
@@ -82,9 +84,9 @@ namespace appbeneficiencia.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NombrePuesto,FechaCreacion")] Puesto puesto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPuesto,NombrePuesto,FechaCreacion")] Puesto puesto)
         {
-            if (id != puesto.Id)
+            if (id != puesto.IdPuesto)
             {
                 return NotFound();
             }
@@ -98,7 +100,7 @@ namespace appbeneficiencia.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PuestoExists(puesto.Id))
+                    if (!PuestoExists(puesto.IdPuesto))
                     {
                         return NotFound();
                     }
@@ -121,7 +123,7 @@ namespace appbeneficiencia.Controllers
             }
 
             var puesto = await _context.Puestos
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.IdPuesto == id);
             if (puesto == null)
             {
                 return NotFound();
@@ -151,7 +153,7 @@ namespace appbeneficiencia.Controllers
 
         private bool PuestoExists(int id)
         {
-            return (_context.Puestos?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Puestos?.Any(e => e.IdPuesto == id)).GetValueOrDefault();
         }
     }
 }
